@@ -1,0 +1,24 @@
+﻿@model DemoCRUDASPCore.Models.Person
+<div>
+    @using (Html.BeginForm("Create", "Person", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div>
+            @Html.DisplayName("PersonName") : @Html.EditorFor(m => m.PersonName)
+        </div>
+        <div>
+            @Html.DisplayName("PersonAddress") : @Html.EditorFor(m => m.PersonAddress)
+        </div>
+        <div>
+            @* @Html.LabelFor(m=>m.ImagName)
+            @Html.TextBoxFor(m => m.ImagName, new { type = "file" })
+            @Html.ValidationMessageFor(m=>m.ImagFile) *@
+            @Html.LabelFor(m => m.ImagFile)
+            @Html.TextBoxFor(m => m.ImagFile, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ImagFile)
+        </div>
+
+        <div>
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    }
+</div>

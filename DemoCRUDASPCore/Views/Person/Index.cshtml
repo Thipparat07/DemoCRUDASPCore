@@ -1,0 +1,26 @@
+﻿@model IEnumerable<DemoCRUDASPCore.Models.Person>
+<h1>Index</h1>
+	<p>
+		<a asp-action="Create" class="btn btn-primary">Create Person</a>
+	</p>
+<table class="table">
+    <td>@Html.DisplayNameFor(m => m.PersonID)</td>
+    <td>@Html.DisplayNameFor(m => m.PersonName)</td>
+    <td>@Html.DisplayNameFor(m => m.PersonAddress)</td>
+    <td>Link</td>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@Html.DisplayFor(m => item.PersonID)</td>
+				<td>@Html.DisplayFor(m => item.PersonName)</td>
+				<td>@Html.DisplayFor(m => item.PersonAddress)</td>
+				<td>
+					@Html.ActionLink("Edit", "Edit", new { id = item.PersonID })|
+					@Html.ActionLink("Details", "Details", new { id = item.PersonID })|
+					@Html.ActionLink("Delete", "Delete",new { id = item.PersonID },new { onclick = "return confirm('คุณต้องการลบ " + item.PersonName + " จริงหรือไม่?');" })
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
