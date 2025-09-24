@@ -10,7 +10,7 @@ namespace DemoCRUDASPCore.Controllers
     {
         private readonly PersonContext _context;
         private readonly IWebHostEnvironment _hostenvironment;
-        public PersonController(PersonContext context,IWebHostEnvironment hotEnv)
+        public PersonController(PersonContext context, IWebHostEnvironment hotEnv)
         {
             _context = context;
             _hostenvironment = hotEnv;
@@ -38,7 +38,7 @@ namespace DemoCRUDASPCore.Controllers
         {
             string fileName = null;
             string uploadDir = Path.Combine(_hostenvironment.WebRootPath, "images");
-            fileName=Guid.NewGuid().ToString() + "-" + person.ImagFile.FileName;
+            fileName = Guid.NewGuid().ToString() + "-" + person.ImagFile.FileName;
             string filePath = Path.Combine(uploadDir, fileName);
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
@@ -48,17 +48,45 @@ namespace DemoCRUDASPCore.Controllers
         }
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null ||  id <= 0)
+            if (id == null || id <= 0)
             {
                 return BadRequest();
             }
-            var person = await _context.Person.FirstOrDefaultAsync(c => c.PersonID==id);
+            var person = await _context.Person.FirstOrDefaultAsync(c => c.PersonID == id);
             if (person == null)
             {
                 return NotFound();
             }
             _context.Person.Remove(person);
             await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || id <= 0) return BadRequest();
+            var person = await _context.Person.FirstOrDefaultAsync(c => c.PersonID == id);
+            if (person == null) return NotFound();
+            return View(person);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, Person person)
+        {
+            if (person == null) return BadRequest();
+            var p = await _context.Person.FirstOrDefaultAsync(c => c.PersonID == id);
+            p.PersonName = person.PersonName;
+            p.PersonAddress = person.PersonAddress;
+            if (person.ImagName != null)
+            {
+                //Delete oId img
+                string filepath = Path.Combine(_hostenvironment.WebRootPath, "images", person.ImagName);
+                System.IO.File.Delete(filepath);
+            }
+
+            p.ImagName = UploadImgs(person);
+            _context.Update(p);
+            _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
     }

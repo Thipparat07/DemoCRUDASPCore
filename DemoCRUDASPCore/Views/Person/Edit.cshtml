@@ -1,0 +1,30 @@
+﻿@model DemoCRUDASPCore.Models.Person
+<div>
+    @using (Html.BeginForm("Edit", "Person", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(c=>c.PersonID)
+        <div>
+            @Html.DisplayName("PersonName") : @Html.EditorFor(m => m.PersonName)
+        </div>
+        <div>
+            @Html.DisplayName("PersonAddress") : @Html.EditorFor(m => m.PersonAddress)
+        </div>
+        <div>
+            @* @Html.LabelFor(m=>m.ImagName)
+            @Html.TextBoxFor(m => m.ImagName, new { type = "file" })
+            @Html.ValidationMessageFor(m=>m.ImagFile) *@
+            @Html.LabelFor(m => m.ImagFile)
+            @Html.TextBoxFor(m => m.ImagFile, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ImagFile)
+        </div>
+        <td>
+            @Html.LabelFor(m=>m.ImagName)
+            <input asp-for="ImagName" readonly/>
+            <img src="@("~/images/"+Model.ImagName)"class="rounded-circle" width="60" height="60" asp-append-version="true"/>
+        </td>
+
+        <div>
+            <input type="submit" value="Edit" class="btn btn-primary" />
+        </div>
+    }
+</div>
