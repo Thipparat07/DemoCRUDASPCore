@@ -89,5 +89,12 @@ namespace DemoCRUDASPCore.Controllers
             _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || id <= 0) return BadRequest();
+            var person = await _context.Person.FirstOrDefaultAsync(c => c.PersonID == id);
+            if (person == null) return NotFound();
+            return View(person);
+        }
     }
 }

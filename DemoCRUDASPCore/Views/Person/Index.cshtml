@@ -1,4 +1,8 @@
-﻿@model IEnumerable<DemoCRUDASPCore.Models.Person>
+﻿@{
+	Layout = "~/Views/Shared/_newLayout.cshtml";
+}
+
+@model IEnumerable<DemoCRUDASPCore.Models.Person>
 <h1>Index</h1>
 	<p>
 		<a asp-action="Create" class="btn btn-primary">Create Person</a>

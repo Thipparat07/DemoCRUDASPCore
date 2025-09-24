@@ -1,0 +1,26 @@
+﻿@{
+    Layout = "~/Views/Shared/_newLayout.cshtml";
+}
+@model DemoCRUDASPCore.Models.Person
+
+<div class="container mt-4">
+    <h2>Person Details</h2>
+    <hr />
+
+    <div class="form-group">
+        <label asp-for="PersonName" class="font-weight-bold"></label>
+        <p>@Model.PersonName</p>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PersonAddress" class="font-weight-bold"></label>
+        <p>@Model.PersonAddress</p>
+    </div>
+
+    <div class="form-group">
+        <label class="font-weight-bold">Profile Image</label><br />
+        <img src="~/images/@Model.ImagName" class="rounded-circle border" width="150" height="150" />
+    </div>
+
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+</div>

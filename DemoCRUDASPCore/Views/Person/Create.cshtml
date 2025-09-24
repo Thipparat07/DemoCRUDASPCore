@@ -1,24 +1,53 @@
-﻿@model DemoCRUDASPCore.Models.Person
-<div>
-    @using (Html.BeginForm("Create", "Person", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        <div>
-            @Html.DisplayName("PersonName") : @Html.EditorFor(m => m.PersonName)
-        </div>
-        <div>
-            @Html.DisplayName("PersonAddress") : @Html.EditorFor(m => m.PersonAddress)
-        </div>
-        <div>
-            @* @Html.LabelFor(m=>m.ImagName)
-            @Html.TextBoxFor(m => m.ImagName, new { type = "file" })
-            @Html.ValidationMessageFor(m=>m.ImagFile) *@
-            @Html.LabelFor(m => m.ImagFile)
-            @Html.TextBoxFor(m => m.ImagFile, new { type = "file" })
-            @Html.ValidationMessageFor(m => m.ImagFile)
-        </div>
+﻿@{
+    Layout = "~/Views/Shared/_CreatLayout.cshtml";
+}
+@model DemoCRUDASPCore.Models.Person
 
-        <div>
-            <input type="submit" value="Create" class="btn btn-primary" />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+
+            <div class="card shadow mt-5">
+                <div class="card-header text-center bg-primary text-white">
+                    <h4>Create Person</h4>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Create", "Person", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(m => m.PersonName, new { @class = "form-label" })
+                            @Html.EditorFor(m => m.PersonName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Name" } })
+                            @Html.ValidationMessageFor(m => m.PersonName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(m => m.PersonAddress, new { @class = "form-label" })
+                            @Html.EditorFor(m => m.PersonAddress, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Address" } })
+                            @Html.ValidationMessageFor(m => m.PersonAddress, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(m => m.ImagFile, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.ImagFile, new { type = "file", @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.ImagFile, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    }
+                    <hr />
+                    <div class="d-grid gap-2">
+                        <a href="index.html" class="btn btn-danger">
+                            <i class="fab fa-google fa-fw"></i> Register with Google
+                        </a>
+                        <a href="index.html" class="btn btn-primary">
+                            <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+                        </a>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    }
+    </div>
 </div>

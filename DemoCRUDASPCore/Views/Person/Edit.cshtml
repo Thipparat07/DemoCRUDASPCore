@@ -1,4 +1,7 @@
-﻿@model DemoCRUDASPCore.Models.Person
+﻿@{
+	Layout = "~/Views/Shared/_newLayout.cshtml";
+}
+@model DemoCRUDASPCore.Models.Person
 <div>
     @using (Html.BeginForm("Edit", "Person", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
